@@ -1,6 +1,4 @@
-import pypandoc
 
-readme = r"""# Hệ thống quản lý thư viện
 
 ## 1. Giới thiệu
 
