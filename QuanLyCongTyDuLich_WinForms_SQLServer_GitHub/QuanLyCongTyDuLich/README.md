@@ -1,6 +1,6 @@
 # HỆ THỐNG QUẢN LÝ CÔNG TY DU LỊCH VĂN HÓA VIỆT
 
-**Bài 6 — C# WinForms (.NET Framework 4.7.2) + SQL Server**, xây dựng dựa trên tài liệu `LAB5_1250080120(5).docx` (quản lý tour, đoàn, chuyến, hướng dẫn viên, bảo hiểm, thanh toán và khảo sát).
+**Bài 6 — C# WinForms (.NET Framework 4.7.2) + SQL Server**, (quản lý tour, đoàn, chuyến, hướng dẫn viên, bảo hiểm, thanh toán và khảo sát).
 
 > Mã nguồn và dữ liệu mẫu phục vụ học tập. Chưa được build/chạy thật trên Windows trong môi trường tạo mã nguồn; hãy thực hiện các bước kiểm chứng ở mục 5 trước khi nộp. Các test case là **kịch bản dự kiến**, không phải biên bản chạy đã đạt.
 
