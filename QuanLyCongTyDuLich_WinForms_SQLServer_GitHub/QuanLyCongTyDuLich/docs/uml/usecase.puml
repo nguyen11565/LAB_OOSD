@@ -1,0 +1,46 @@
+@startuml
+skinparam monochrome true
+left to right direction
+actor "Khách hàng" as KH
+actor "Nhân viên bán vé" as BV
+actor "Nhân viên quản lý" as QL
+actor "Hướng dẫn viên" as HD
+rectangle "Hệ thống quản lý du lịch Văn Hóa Việt" {
+ usecase "Xem thông tin tour" as U1
+ usecase "Đăng ký tour" as U2
+ usecase "Đăng ký theo chuyến" as U3
+ usecase "Đăng ký theo đoàn" as U4
+ usecase "Thanh toán vé" as U5
+ usecase "Đặt cọc đoàn" as U6
+ usecase "Kèm danh sách bảo hiểm" as U7
+ usecase "Hủy vé/phiếu" as U8
+ usecase "Khảo sát sau tour" as U9
+ usecase "Quản lý danh mục" as U10
+ usecase "Lập chuyến & lịch trình" as U11
+ usecase "Phân công HDV" as U12
+ usecase "Ghi nhận hoàn thành" as U13
+ usecase "Tất toán đoàn" as U14
+ usecase "Báo cáo và tính lương" as U15
+ usecase "Xem phân công" as U16
+}
+KH -- U1
+KH -- U2
+KH -- U8
+KH -- U9
+U3 -|> U2
+U4 -|> U2
+U3 ..> U5 : <<include>>
+U4 ..> U6 : <<include>>
+U7 ..> U4 : <<extend>>\n[mua bảo hiểm]
+BV -- U3
+BV -- U4
+BV -- U5
+BV -- U6
+QL -- U10
+QL -- U11
+QL -- U12
+QL -- U13
+QL -- U14
+QL -- U15
+HD -- U16
+@enduml

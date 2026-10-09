@@ -1,0 +1,124 @@
+@startuml
+skinparam monochrome true
+hide empty methods
+skinparam classAttributeIconSize 0
+left to right direction
+class TourDuLich {
+ +MaTour: string {PK}
+ +TenTour: string
+ +SoNgay: int
+ +SoDem: int
+ +DonGia: decimal
+ +themTour()
+ +suaTour()
+}
+class DiemThamQuan { +MaDiemThamQuan: string {PK}
+ +TenDiemThamQuan: string
+ +DiaDiem: string
+ +NoiDungYNghia: string }
+class NoiDungChan { +MaNoiDungChan: string {PK}
+ +TenNoiDungChan: string
+ +DoiPhuongTien: bool
+ +CoNoiAn: bool
+ +CoKhachSan: bool
+ +LoaiKhachSan: int? }
+class PhuongTien { +MaPhuongTien: string {PK}
+ +TenPhuongTien: string
+ +LoaiPhuongTien: string }
+class TourDiemThamQuan { +MaTour: string {PK, FK}
+ +MaDiemThamQuan: string {PK, FK}
+ +ThuTu: int }
+class TourNoiDungChan { +MaTour: string {PK, FK}
+ +ThuTu: int {PK}
+ +MaNoiDungChan: string {FK}
+ +MaPhuongTien: string {FK} }
+class ChuyenKhachLe { +MaChuyen: string {PK}
+ +MaTour: string {FK}
+ +NgayDi: Date
+ +NgayVe: Date
+ +DonGiaApDung: decimal
+ +SucChua: int
+ +SoLuongHienTai: int
+ +TrangThai: string }
+class VeKhachLe { +MaVe: string {PK}
+ +MaChuyen: string {FK}
+ +MaKhachHang: string {FK}
+ +MaDiemBan: string {FK}
+ +SoNguoi: int
+ +NgayDangKy: Date
+ +DiemDon: string
+ +TongTienThanhToan: decimal
+ +TrangThai: string }
+class DiemBanVe { +MaDiemBan: string {PK}
+ +TenDiemBan: string
+ +DiaChi: string
+ +SoDienThoai: string }
+class KhachHang { +MaKhachHang: string {PK}
+ +HoTen: string
+ +SoDienThoai: string
+ +DiaChi: string
+ +Email: string }
+class PhieuDangKyDoan { +MaPhieuDoan: string {PK}
+ +MaTour: string {FK}
+ +MaKhachHang: string {FK}
+ +TenCoQuan: string
+ +NguoiDaiDien: string
+ +SoNguoiDi: int
+ +NgayDiYeuCau: Date
+ +DiemDon: string
+ +TienCoc: decimal
+ +DonGiaApDung: decimal
+ +CoBaoHiem: bool
+ +TrangThai: string }
+class DanhSachBaoHiem { +MaSoBaoHiem: string {PK}
+ +MaPhieuDoan: string {FK}
+ +HoTen: string
+ +CMNDPassport: string
+ +NgaySinh: Date }
+class ThanhToanDoan { +MaThanhToan: string {PK}
+ +MaPhieuDoan: string {FK}
+ +NgayThanhToan: Date
+ +SoTien: decimal }
+class NhanVienHD { +MaNhanVien: string {PK}
+ +HoTen: string
+ +SoDienThoai: string
+ +LuongCoBan: decimal
+ +phanCong()
+ +tinhLuongInMonth() }
+class PhanCongHuongDan { +MaPhanCong: string {PK}
+ +MaNhanVien: string {FK}
+ +MaChuyen: string? {FK}
+ +MaPhieuDoan: string? {FK}
+ +TienCong: decimal }
+class PhieuKhaoSat { +MaKhaoSat: string {PK}
+ +MaKhachHang: string {FK}
+ +MaChuyen: string? {FK}
+ +MaPhieuDoan: string? {FK}
+ +NgayKhaoSat: Date
+ +NoiDungGopY: string
+ +DiemDanhGia: int }
+TourDuLich "1" -- "0..*" ChuyenKhachLe
+TourDuLich "1" -- "0..*" PhieuDangKyDoan
+TourDuLich "1" -- "0..*" TourDiemThamQuan
+DiemThamQuan "1" -- "0..*" TourDiemThamQuan
+TourDuLich "1" -- "0..*" TourNoiDungChan
+NoiDungChan "1" -- "0..*" TourNoiDungChan
+PhuongTien "1" -- "0..*" TourNoiDungChan
+ChuyenKhachLe "1" -- "0..*" VeKhachLe
+KhachHang "1" -- "0..*" VeKhachLe
+DiemBanVe "1" -- "0..*" VeKhachLe
+KhachHang "1" -- "0..*" PhieuDangKyDoan
+PhieuDangKyDoan "1" -- "0..*" DanhSachBaoHiem
+PhieuDangKyDoan "1" -- "0..1" ThanhToanDoan
+NhanVienHD "1" -- "0..*" PhanCongHuongDan
+ChuyenKhachLe "0..1" -- "0..1" PhanCongHuongDan
+PhieuDangKyDoan "0..1" -- "0..*" PhanCongHuongDan
+KhachHang "1" -- "0..*" PhieuKhaoSat
+ChuyenKhachLe "0..1" -- "0..*" PhieuKhaoSat
+PhieuDangKyDoan "0..1" -- "0..*" PhieuKhaoSat
+note bottom of PhanCongHuongDan
+Constraint: exactly one of
+MaChuyen / MaPhieuDoan is set.
+Guide cannot overlap dates.
+end note
+@enduml

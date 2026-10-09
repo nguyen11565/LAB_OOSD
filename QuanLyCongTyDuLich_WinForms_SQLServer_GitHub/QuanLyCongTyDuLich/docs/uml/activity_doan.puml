@@ -1,0 +1,46 @@
+@startuml
+skinparam monochrome true
+title Activity - Đăng ký tour theo đoàn
+start
+partition "Khách hàng / Đại diện đoàn" {
+ :Chọn tour, ngày đi, điểm đón;
+ :Nhập cơ quan, liên hệ, số người;
+}
+partition "Hệ thống" {
+ :Kiểm tra tour, ngày đi, số người >=12;
+ if (Hợp lệ?) then (Có)
+ else (Không)
+ :Thông báo và yêu cầu sửa;
+ stop
+ endif
+}
+partition "Khách hàng / Đại diện đoàn" {
+ if (Mua bảo hiểm?) then (Có)
+ :Nhập danh sách đầy đủ người đi;
+ else (Không)
+ endif
+ :Thanh toán tiền cọc;
+}
+partition "Hệ thống" {
+ :Kiểm tra cọc và bảo hiểm;
+ if (Đủ điều kiện?) then (Có)
+ :Lưu phiếu và danh sách bảo hiểm (transaction);
+ :Xác nhận đăng ký;
+ else (Không)
+ :Báo lỗi, rollback;
+ stop
+ endif
+}
+partition "Nhân viên quản lý" {
+ :Phân công hướng dẫn viên không trùng lịch;
+ :Tổ chức chuyến theo lịch;
+ if (Đoàn hủy trước chuyến?) then (Có)
+ :Hủy phiếu - không hoàn cọc;
+ stop
+ endif
+ :Đánh dấu hoàn thành khi về;
+ :Thu số tiền còn lại;
+ :Gửi khảo sát;
+}
+stop
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+skinparam monochrome true
+title Sequence - Bán vé theo chuyến (Boundary - Control - Entity)
+actor "Khách lẻ / NV bán vé" as KH
+boundary "FrmChuyenLe" as F
+control "BookingService" as S
+entity "Db / SQL Server" as DB
+KH -> F: Chọn chuyến, khách, điểm bán, số người
+F -> S: SellTicket(LeRequest)
+S -> S: Kiểm tra 1-11 người và thông tin
+S -> DB: BeginTransaction(Serializable)
+S -> DB: SELECT chuyến WITH(UPDLOCK,HOLDLOCK)
+DB --> S: Giá đã chốt, ngày đi, trạng thái
+alt Có đủ chỗ và chưa khởi hành
+ S -> DB: UPDATE SoLuongHienTai += SoNguoi (có điều kiện)
+ S -> DB: INSERT VeKhachLe [DaThanhToan]
+ S -> DB: COMMIT
+ S --> F: Số tiền đã thu
+ F --> KH: Xuất vé / xác nhận
+else Hết chỗ / thông tin sai
+ S -> DB: ROLLBACK
+ S --> F: Thông báo lỗi
+ F --> KH: Chọn chuyến hoặc số người khác
+end
+@enduml

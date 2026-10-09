@@ -1,0 +1,31 @@
+@startuml
+skinparam monochrome true
+title Sequence - Lập phiếu đăng ký đoàn (Boundary - Control - Entity)
+actor "Đại diện đoàn" as KH
+boundary "FrmPhieuDoan" as F
+control "BookingService" as S
+entity "Db / SQL Server" as DB
+KH -> F: Nhập tour, người, ngày đi, cơ quan, cọc
+opt Mua bảo hiểm
+ KH -> F: Nhập đầy đủ danh sách người tham gia
+end
+F -> S: CreateGroup(DoanRequest)
+S -> S: Kiểm tra dữ liệu >=12, ngày đi, bảo hiểm
+S -> DB: BeginTransaction(Serializable)
+S -> DB: SELECT DonGia WHERE MaTour = ?
+DB --> S: DonGia
+S -> S: Tổng = DonGia * SoNguoi; Kiểm tra cọc
+alt Hợp lệ
+ S -> DB: INSERT PhieuDangKyDoan
+ loop từng người (khi có bảo hiểm)
+ S -> DB: INSERT DanhSachBaoHiem
+ end
+ S -> DB: COMMIT
+ S --> F: Tổng chi phí
+ F --> KH: Thông báo xác nhận đăng ký và số dư
+else Không hợp lệ hoặc SQL lỗi
+ S -> DB: ROLLBACK
+ S --> F: Exception
+ F --> KH: Thông báo lỗi để nhập lại
+end
+@enduml

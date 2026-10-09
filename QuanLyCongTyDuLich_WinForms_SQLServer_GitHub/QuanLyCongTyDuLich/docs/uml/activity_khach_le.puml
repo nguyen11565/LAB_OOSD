@@ -1,0 +1,31 @@
+@startuml
+skinparam monochrome true
+title Activity - Đăng ký chuyến khách lẻ
+start
+partition "Khách lẻ" {
+ :Chọn tour, chuyến, điểm bán;
+ :Chọn điểm đón và số người 1-11;
+}
+partition "Nhân viên bán vé / Hệ thống" {
+ :Kiểm tra khách, trạng thái chuyến;
+ :Khóa bản ghi chuyến và kiểm tra sức chứa;
+ if (Có đủ chỗ?) then (Có)
+ :Tính tiền theo đơn giá đã chốt;
+ else (Không)
+ :Thông báo hết chỗ;
+ stop
+ endif
+}
+partition "Khách lẻ" { :Thanh toán đầy đủ tiền vé; }
+partition "Hệ thống" {
+ :Tăng số lượng hiện tại;
+ :Lưu vé đã thanh toán (transaction);
+ :Thông báo đặt vé thành công;
+}
+partition "Nhân viên quản lý" {
+ :Phân công một hướng dẫn viên;
+ :Kết thúc chuyến theo lịch;
+ :Nhận khảo sát từ khách tham gia;
+}
+stop
+@enduml
