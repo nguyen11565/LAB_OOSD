@@ -1,0 +1,43 @@
+@startuml
+title SEQUENCE - LẬP TOA THUỐC SAU KHÁM
+actor "Bác sĩ" as BS
+boundary "FrmToaThuoc" as UI
+control "ToaThuocService" as Service
+entity "Db (ADO.NET)" as DB
+database "SQL Server" as SQL
+BS -> UI : Chọn mã phiếu khám, nhập lời dặn
+UI -> Service : TaoToa(maPhieuKham, loiDan)
+Service -> DB : Proc(usp_TaoToaThuoc, params)
+DB -> SQL : EXEC usp_TaoToaThuoc
+SQL -> SQL : Kiểm tra phiếu DANG_KHAM, chưa hóa đơn, chưa có toa
+alt Phiếu không hợp lệ / toa đã tồn tại
+ SQL --> DB : THROW business error
+ DB --> UI : Exception
+ UI --> BS : Hiển thị lỗi
+else Hợp lệ
+ SQL -> SQL : INSERT ToaThuoc, lấy ID
+ SQL --> DB : MaToaThuoc OUT
+ DB --> Service : ID
+ Service --> UI : ID toa
+ UI --> BS : Hiển thị mã toa
+ loop Cho mỗi thuốc
+  BS -> UI : Chọn thuốc, SL, liều, số lần/ngày, ngày, cách dùng
+  UI -> Service : ThemThuoc(ThuocKeInput)
+  Service -> DB : Proc(usp_ThemChiTietToa)
+  DB -> SQL : EXEC usp_ThemChiTietToa
+  alt Thuốc trùng hoặc liều không hợp lệ
+   SQL --> UI : THROW / lỗi UNIQUE, CHECK
+   UI --> BS : Sửa dữ liệu
+  else Hợp lệ
+   SQL -> SQL : INSERT ChiTietToaThuoc
+   SQL --> UI : Xác nhận thêm thuốc
+  end
+ end
+ BS -> UI : Xem trước / In toa
+ UI -> Service : DanhSach(maToa)
+ Service -> DB : Query(Toa + ChiTietToa + Thuoc)
+ DB -> SQL : SELECT theo tham số @MaToaThuoc
+ SQL --> UI : Chi tiết toa
+ UI --> BS : Hiển thị trang in / Giao toa cho bệnh nhân
+end
+@enduml

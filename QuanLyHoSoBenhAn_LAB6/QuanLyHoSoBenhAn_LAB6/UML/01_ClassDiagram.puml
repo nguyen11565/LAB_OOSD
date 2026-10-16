@@ -1,0 +1,166 @@
+@startuml
+' Source: LAB6_QuanLyHoSoBenhAn.docx, class table and class diagram (16 classes).
+title CLASS DIAGRAM - QUẢN LÝ HỒ SƠ BỆNH ÁN (16 lớp)
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+hide empty members
+class BenhNhan {
+  +maBenhNhan: int <<PK>>
+  +hoTen: string
+  +diaChi: string
+  +ngaySinh: Date
+  +soDienThoai: string
+  +anh3x4: string
+  +themBenhNhan()
+  +timKiemBenhNhan()
+}
+class PhieuDangKy {
+  +maPhieuDangKy: int <<PK>>
+  +maBenhNhan: int <<FK>>
+  +ngayDangKy: DateTime
+  +trangThai: string
+  +lapPhieuDangKy()
+  +xacNhanDangKy()
+}
+class PhieuThuLePhi {
+  +maPhieuThu: int <<PK>>
+  +maBenhNhan: int <<FK>>
+  +soTien: decimal
+  +ngayBatDauHieuLuc: Date
+  +ngayHetHan: Date
+  +lapPhieuThu()
+  +kiemTraHieuLuc()
+}
+class HoSoBenhAn {
+  +maHoSo: int <<PK>>
+  +maBenhNhan: int <<FK,UQ>>
+  +maPhieuDangKy: int <<FK,UQ>>
+  +ngayLap: DateTime
+  +ghiChu: string
+  +traCuuHoSo()
+  +xemLichSuKham()
+}
+class BacSi {
+  +maBacSi: int <<PK>>
+  +maKhoa: int <<FK>>
+  +hoTen: string
+  +chuyenMon: string
+  +keToaThuoc()
+}
+class KhoaDieuTri {
+  +maKhoa: int <<PK>>
+  +tenKhoa: string
+  +moTa: string
+}
+class PhieuKhamBenh {
+  +maPhieuKham: int <<PK>>
+  +maHoSo: int <<FK>>
+  +maBacSi: int <<FK>>
+  +maKhoa: int <<FK>>
+  +maLichHen: int <<FK, UQ, NULL>>
+  +ngayGioKham: DateTime
+  +loaiKham: string
+  +trieuChung: string
+  +thanNhiet: decimal
+  +huyetAp: string
+  +chanDoan: string
+  +ketLuan: string
+  +trangThai: string
+  +hoanTatKham()
+}
+class LoaiXetNghiem {
+  +maLoaiXetNghiem: int <<PK>>
+  +tenXetNghiem: string
+  +donGia: decimal
+}
+class PhieuXetNghiem {
+  +maPhieuXetNghiem: int <<PK>>
+  +maPhieuKham: int <<FK>>
+  +maLoaiXetNghiem: int <<FK>>
+  +ketQua: string
+  +donGiaApDung: decimal
+  +trangThai: string
+  +ghiNhanKetQua()
+}
+class ToaThuoc {
+  +maToaThuoc: int <<PK>>
+  +maPhieuKham: int <<FK, UQ>>
+  +ngayLap: DateTime
+  +loiDan: string
+  +lapToaThuoc()
+}
+class ChiTietToaThuoc {
+  +maChiTietToa: int <<PK>>
+  +maToaThuoc: int <<FK>>
+  +maThuoc: int <<FK>>
+  +soLuong: int
+  +lieuDung: string
+  +soLanDungTrongNgay: int
+  +cachDung: string
+  +soNgayDung: int
+}
+class Thuoc {
+  +maThuoc: int <<PK>>
+  +tenThuoc: string
+  +hamLuong: string
+  +donViTinh: string
+}
+class NhanVienCSKH {
+  +maNhanVien: int <<PK>>
+  +hoTen: string
+  +lapLichHen()
+  +ghiNhanDieuTri()
+}
+class LichHen {
+  +maLichHen: int <<PK>>
+  +maHoSo: int <<FK>>
+  +maBacSi: int <<FK>>
+  +maNhanVien: int <<FK, NULL>>
+  +ngayGioHen: DateTime
+  +loaiHen: string
+  +trangThai: string
+  +datLichHen()
+}
+class HoaDonVienPhi {
+  +maHoaDon: int <<PK>>
+  +maPhieuKham: int <<FK,UQ>>
+  +tongTien: decimal
+  +ngayThanhToan: DateTime
+  +trangThaiThanhToan: string
+  +xacNhanThanhToan()
+}
+class TheoDoiDieuTri {
+  +maTheoDoi: int <<PK>>
+  +maPhieuKham: int <<FK>>
+  +maNhanVien: int <<FK>>
+  +dienBienBenh: string
+  +phanUngPhu: string
+  +hieuQuaDieuTri: string
+}
+
+BenhNhan "1" -- "1" PhieuDangKy : đăng ký
+BenhNhan "1" -- "0..*" PhieuThuLePhi : lệ phí hằng năm
+BenhNhan "1" -- "1" HoSoBenhAn : sở hữu
+PhieuDangKy "1" -- "1" HoSoBenhAn : tạo hồ sơ
+HoSoBenhAn "1" -- "0..*" PhieuKhamBenh : lịch sử
+HoSoBenhAn "1" -- "0..*" LichHen : lịch
+BacSi "1" -- "0..*" PhieuKhamBenh : khám
+BacSi "1" -- "0..*" LichHen : phụ trách
+KhoaDieuTri "1" -- "0..*" BacSi : quản lý
+KhoaDieuTri "1" -- "0..*" PhieuKhamBenh : nơi khám
+NhanVienCSKH "1" -- "0..*" LichHen : đặt lịch
+LichHen "0..1" -- "0..1" PhieuKhamBenh : tiếp nhận
+PhieuKhamBenh "1" -- "0..*" PhieuXetNghiem : chỉ định
+LoaiXetNghiem "1" -- "0..*" PhieuXetNghiem : danh mục
+PhieuKhamBenh "1" -- "0..1" ToaThuoc : kê toa
+ToaThuoc "1" -- "0..*" ChiTietToaThuoc : dòng thuốc
+Thuoc "1" -- "0..*" ChiTietToaThuoc : được kê
+PhieuKhamBenh "1" -- "0..1" HoaDonVienPhi : thanh toán
+PhieuKhamBenh "1" -- "0..*" TheoDoiDieuTri : theo dõi
+NhanVienCSKH "1" -- "0..*" TheoDoiDieuTri : ghi nhận
+note bottom of HoSoBenhAn
+  Quy tắc: 1 hồ sơ/bệnh nhân; phí năm mới cho khám định kỳ.
+  Khóa số int IDENTITY (SQL) thay mã kiểu String (UML nguồn),
+  xem Docs/QuyetDinhThietKe.md.
+end note
+@enduml
