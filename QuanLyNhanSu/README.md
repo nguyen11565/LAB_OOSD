@@ -42,6 +42,4 @@ Tổng thực lĩnh = lương theo công + phụ cấp + phụ trội + thưởn
 
 Xem `tests/VERIFICATION.md`, chạy `tests/Integration.sql` **trên database thử nghiệm sau seed, trước tính lương thủ công**. Script rollback thay đổi. Kịch bản thủ công trong docs/TestCases.csv. Không đánh dấu PASS cho kịch bản chưa chạy trên SQL Server/Windows. Đây là ứng dụng bài tập chạy nội bộ, chưa có đăng nhập/phân quyền thực thi; actor UML là vai trò nghiệp vụ. Cần chạy kiểm thử tích hợp và chụp màn hình trên Windows trước khi nộp.
 
-## Đưa lên GitHub
 
-Giải nén folder, mở repository GitHub của bạn → Add file → Upload files → kéo toàn bộ nội dung folder (không kéo file ZIP), Commit changes. Hoặc mở folder bằng GitHub Desktop, Create repository rồi Publish repository. Không đưa bin/obj/.vs hoặc thông tin đăng nhập lên kho mã. Điền họ tên/MSSV/lớp của bạn vào báo cáo trước khi nộp.
