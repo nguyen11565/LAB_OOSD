@@ -20,7 +20,7 @@
 
 | LAB | Chủ đề | Nội dung trọng tâm | Liên kết |
 | --- | --- | --- | --- |
-| 0 | Cài đặt và kiểm tra môi trường | JDK, Maven, Git, IDE, starter project | [Nhánh main](https://github.com/nguyen11565/LAB_OOSD/tree/LAB)0) |
+| 0 | Cài đặt và kiểm tra môi trường | JDK, Maven, Git, IDE, starter project | [Nhánh main](https://github.com/nguyen11565/LAB_OOSD/tree/LAB0)) |
 | 1 | Đặc tả yêu cầu Use Case | Thư viện trực tuyến và cửa hàng nước giải khát | [Repository chính](https://github.com/nguyen11565/LAB_OOSD/tree/LAB1) |
 | 2 | Hệ thống quản lý thư viện | Activity, Sequence và giao diện FrmMain | [LAB2](https://github.com/nguyen11565/LAB_OOSD/tree/LAB2) |
 | 3 | Hệ thống quản lý khách sạn | Các form nghiệp vụ, cơ sở dữ liệu | [LAB3](https://github.com/nguyen11565/LAB_OOSD/tree/LAB3) |
