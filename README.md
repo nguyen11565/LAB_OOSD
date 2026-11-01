@@ -49,7 +49,7 @@
 
 **Sản phẩm thể hiện trong báo cáo:** ảnh/lệnh kiểm tra công cụ, minh chứng chạy dự án, kết quả Git và câu trả lời tự kiểm tra.
 
-**Xem:** [LAB 0 / main](https://github.com/nguyen11565/LAB_OOSD/tree/main).
+**Xem:** [LAB 0 ](https://github.com/nguyen11565/LAB_OOSD/tree/LAB0).
 
 ## LAB 1 – Đặc tả yêu cầu Use Case
 
@@ -211,7 +211,7 @@ Các công cụ và kỹ thuật được nhắc đến trong báo cáo gồm:
 
 ## Cách xem các LAB trên GitHub
 
-Truy cập repository [LAB_OOSD](https://github.com/nguyen11565/LAB_OOSD), sử dụng menu chọn nhánh để chuyển giữa `main`, `LAB2`, `LAB3`, `LAB4`, `LAB5`, `LAB6`, `LAB7`, `LAB8` theo đường dẫn đã ghi trong báo cáo.
+Truy cập repository [LAB_OOSD](https://github.com/nguyen11565/LAB_OOSD), sử dụng menu chọn nhánh để chuyển giữa `main`,`LAB0`,`LAB1`, `LAB2`, `LAB3`, `LAB4`, `LAB5`, `LAB6`, `LAB7`, `LAB8` theo đường dẫn đã ghi trong báo cáo.
 
 Ví dụ, nếu muốn tải mã nguồn từ nhánh LAB4 bằng Git:
 
